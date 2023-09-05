@@ -4,15 +4,16 @@ import stubs from "./stubs";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import CodeMirror from '@uiw/react-codemirror'
-import { tokyoNight } from '@uiw/codemirror-themes-all';
+import * as themes from '@uiw/codemirror-themes-all';
 import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
-// import {EditorView} from "@codemirror/view"
+import Home from "./home.js"
 
-
+const theme = themes.tokyoNight;
 
 function App() {
   const [code, setCode] = useState("");
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
   const [jobId, setJobId] = useState(null);
@@ -34,6 +35,7 @@ function App() {
     const payload = {
       language,
       code,
+      input,
     };
     try {
       setOutput("");
@@ -43,7 +45,7 @@ function App() {
       const { data } = await axios.post("http://localhost:5001/run", payload);
       if (data.jobId) {
         setJobId(data.jobId);
-        setStatus("Submitted.");
+        setStatus("Submitted");
 
         // poll here
         pollInterval = setInterval(async () => {
@@ -108,33 +110,36 @@ function App() {
     return result;
   };
 
-
   return (
     <div className="App">
 
-      <h1>Online Code Compiler</h1>
-      <div>
-        <label>Language:</label>
-        <select
-          value={language}
-          onChange={(e) => {
-            const shouldSwitch = window.confirm(
-              "Are you sure you want to change language? WARNING: Your current code will be lost."
-            );
-            if (shouldSwitch) {
-              setLanguage(e.target.value);
-            }
-          }}
-        >
-          <option value="cpp">C++</option>
-          <option value="py">Python</option>
-        </select>
+    {/* <Home/> */}
+    {/* <div className="spacer"></div> */}
+
+      <div className="header">
+        <div id="heading">Online Code Compiler</div>
+        <div className="language">
+          <p style={{"fontWeight":800}}>Language:</p>
+          <select
+            className="select"
+            value={language}
+            onChange={(e) => {
+              const shouldSwitch = window.confirm(
+                "Are you sure you want to change language? WARNING: Your current code will be lost."
+              );
+              if (shouldSwitch) {
+                setLanguage(e.target.value);
+              }
+            }}
+          >
+            <option value="cpp">C++</option>
+            <option value="py">Python</option>
+          </select>
+          <div>
+            <button className="set-default" onClick={setDefaultLanguage}>Set Default</button>
+          </div>
+        </div>
       </div>
-      <br />
-      <div>
-        <button onClick={setDefaultLanguage}>Set Default</button>
-      </div>
-      <br />
 
       <div className="flex">
         <div className="code-and-submit">
@@ -142,9 +147,8 @@ function App() {
             <CodeMirror
               className="editor"
               value={code}
-              height="60vh"
-              width="60vw"
-              theme={tokyoNight}
+              height="70vh"
+              theme={theme}
               extensions={[cpp({ jsx: false }), python({ jsx: false })]}
               // autoFocus = 'true'
               // bracketMatching='true'
@@ -154,20 +158,35 @@ function App() {
               }}
             />
           </div>
-            <button className="submit" onClick={handleSubmit}>Submit</button>
+          <button title="add" className="submit cssbuttons-io-button" onClick={handleSubmit}>Submit</button>
         </div>
 
       <div className="result">
-        <div className="info">
+        <div className="input-gradient">
+          <h2>Input</h2>
+          <textarea
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+        </div>
+
+        <div className="input-gradient">
           <h2>Status</h2>
-          <p className="status">{status}</p>
-          {jobId ? `Job ID: ${jobId}` : ""} <br/>
-          {renderTimeDetails()}
+          <div className="info">
+            <p className="status" style={{ backgroundColor: status === "success" ? "rgb(92, 255, 92)" : status === "error" ? "rgb(255, 92, 92)" : status === "pending" ? "rgb(92, 217, 255)" : status === "Submitted" ? "rgb(182, 182, 182)": "rgba(0,0,0,0)" }}>{status}</p> <br/>
+            {jobId ? `Job ID: ${jobId}` : ""} <br/>
+            {renderTimeDetails()}
+          </div>
         </div>
-        <div className="output"> 
+
+        <div className="input-gradient">
           <h2>Output</h2>
-          <p>{output}</p>
+          <div className="output" style={{ whiteSpace: 'pre-line' }}> 
+            <p>{output}</p>
+          </div>
         </div>
+        
       </div>
       </div>
 

@@ -1,3 +1,6 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -11,12 +14,37 @@ body{
   color: rgb(230, 254, 255);
   background: #000000;
   height: 100vh;
+  /* font-family: Fira Code; */
+}
+
+h1, h3{
+  margin: 0px;
+}
+
+h2{
+  margin: 0px;
+  margin-bottom: 4px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 2vw;
+  margin-bottom: 3vh;
+  /* background-color: #252525; */
+}
+
+.language{
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .editor{
   width: 60vw;
   min-height: 60vh;
-  height: 60vh;
+  height: 70vh;
   text-align: left;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.574);  
@@ -29,6 +57,14 @@ body{
   padding: 8px;
 }
 
+.input-gradient{
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #f8b04e, #f88597, #f653db);
+  padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
 .submit{
   margin-top: 30px;
   margin-bottom: 20px;
@@ -36,6 +72,9 @@ body{
 
 .result{
   /* padding: 10px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: left;
   color: black;
   border-radius: 10px;
@@ -46,22 +85,126 @@ body{
 }
 
 .output{
-  padding: 10px;
-  margin: 0px;
-  height: 25vw;
-  width: 29vw;
+  width: auto;
+  max-height: fit-content;
+  min-height: 25vh;
   border-radius: 5px;
   background: linear-gradient(to bottom, #F5F5DE, #caf1f7);
   overflow-x: hidden;
   overflow-y: auto;
+  padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 .info{
   border-radius: 5px;
-  margin-bottom: 2vw;
-  padding: 3px 10px 10px 10px;
+  min-height: 80px;
   background: linear-gradient(to bottom, #F5F5DE, #caf1f7);
+  padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
+#heading{
+  /* background: linear-gradient(to right, #7DE0B7,#F8F875); */
+  font-size: 2.5em;
+  font-family: Montserrat;
+  background: linear-gradient(to bottom, #F5F5DE, #79e9fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; 
+}
+
+textarea{
+  width: 30vw;
+  min-height: 20vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  resize: none;
+  background: linear-gradient(to bottom, #F5F5DE, #caf1f7);
+
+}
+
+.cssbuttons-io-button {
+  gap: .2em;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  padding: .5em 1.5em;
+  color: white;
+  background: linear-gradient(0deg, rgb(0, 150, 60), rgb(100, 250, 150));
+  border: none;
+  outline: none;
+  border-bottom: 3px solid rgb(0, 130, 40);
+  box-shadow: 0 .5em .5em -.4em rgb(0, 0, 0, .5);
+  letter-spacing: 0.08em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.cssbuttons-io-button:hover {
+  filter: brightness(1.2);
+  color: rgb(0, 0, 0, .5);
+}
+
+.cssbuttons-io-button:active {
+  transition: 0s;
+  transform: rotate(-10deg);
+}
+
+/* back #1F2D0C 
+text #B1E457
+hov back #3C521E
+
+*/
+
+.set-default{
+  font-family: inherit;
+  font-weight: 750;
+  padding: .5em;
+  color: #B1E457;
+  background-color: #1F2D0C ;
+  border: none;
+  outline: none;
+  /* letter-spacing: 0.08em; */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.set-default:hover {
+  background-color: #3C521E;
+}
+
+.select{
+  font-weight: 750;
+  color: #e4d157;
+  background-color: #2d2b0c ;
+  border: none;
+  outline: none;
+  /* letter-spacing: 0.08em; */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.select:hover {
+  background-color: #524b1e;
+}
+
+p{
+  margin: 0px;
+}
+
+.status{
+  display: inline-block;
+  background-color: rgb(182, 182, 182);
+  padding: 5px 9px;
+  margin-bottom: 4px;
+  border-radius: 40px;
+
+}
 
   
 .App-logo {
@@ -83,6 +226,9 @@ body{
     margin-bottom: 5vw;
 
   }
+  textarea{
+    width: 87vw;
+  }
   .editor{
     width: 90vw;
   }
@@ -97,30 +243,153 @@ body{
   .output{
     width: auto;
   }
-}
-
-/*
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .input-gradient{
+    margin-bottom: 40px;
   }
-  to {
-    transform: rotate(360deg);
+
+  #heading {
+    font-size: 5vw;
   }
+
+  .language{
+    font-size: 3vw;
+    flex-direction: column;
+    width: 20vw;
+  }
+  .header{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .set-default{
+    font-size: 12px;
+  }
+
 }
- */
+
+
+.spacer {
+	width:100%;
+	height:50vh;
+	background:#ddd;
+}
+
+
+.gallery h1 {
+	font-size:clamp(2em, 4vw, 6em);
+}
+
+.gallery p {
+	font-size:clamp(1.4em, 2.5vw, 3.5em);
+	line-height:1.4;
+}
+
+
+.gallery {
+  display:flex;	
+  /* outline:1px solid red; */
+}
+
+.left {
+	width:50%;
+}
+
+.right {
+	height:100vh;
+	/* outline:1px solid purple; */
+	width:50%;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+.desktopContent {
+	margin:auto;
+	width:80%;
+}
+
+.desktopContentSection {
+	min-height:100vh;
+	/* outline:1px solid green; */
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+
+.desktopPhotos {
+	width:40vw;
+	height:40vw;
+	border-radius:20px;
+	position:relative;
+	overflow:hidden;
+	box-shadow:4px 4px 4px rgba(0, 0, 0, 0.4);
+}
+
+.desktopPhoto {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+
+
+
+.red {
+	background: crimson;
+}
+
+.green {
+	background:MediumSeaGreen;
+}
+
+.blue {
+	background:dodgerblue;
+}
+
+.pink{
+	background:deepPink;
+}
+
+
+/* small screen / mobile layout */
+.mobileContent {
+	display:none;
+	width:80vw;
+}
+
+.mobilePhoto {
+	width:80vw;
+	height:80vw;
+	margin-top:5em;
+	border-radius:6vw;
+}
+
+
+
+
+
+
+/* defines styles for screens up to 599px wide */
+@media screen and (max-width: 599px) {
+	.left {
+		display:none;
+	}
+	
+	.right {
+		height:auto;
+		width:100%;
+		align-items:center;	
+	}	
+	
+	.desktopPhotos {
+		display:none;
+	}
+	
+	.mobileContent {
+		display:block;
+	}
+	
+
+}
+
