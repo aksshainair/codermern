@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.post("/run", async (req, res) => {
-  const { language = "cpp", code } = req.body;
+  const { language = "cpp", code, input } = req.body;
 
   console.log(language, "Length:", code.length);
 
@@ -35,9 +35,9 @@ app.post("/run", async (req, res) => {
     return res.status(400).json({ success: false, error: "Empty code body!" });
   }
   // need to generate a c++ file with content from the request
-  const filepath = await generateFile(language, code);
+  const filepath = await generateFile(language, code, input);
   // write into DB
-  const job = await new Job({ language, filepath }).save();
+  const job = await new Job({ language, filepath}).save();
   const jobId = job["_id"];
   addJobToQueue(jobId);
   res.status(201).json({ jobId });
