@@ -4,11 +4,12 @@ const Job = require("./models/Job");
 const { executeCpp } = require("./executeCpp");
 const { executePy } = require("./executePy");
 
-redis://red-ck64kqddrqvc73a5ggtg
+// redis://red-ck64kqddrqvc73a5ggtg:6379
+
 
 const jobQueue = new Queue("job-runner-queue",{
   redis: {
-    host: 'red-ck64kqddrqvc73a5ggtg',
+    host: 'red-ck64kqddrqvc73a5ggtg:Appu35jDjnKnJ2GDw3pgcs5saokqkaDX@oregon-redis.render.com',
     port: 6379
   }
 });
