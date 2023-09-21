@@ -1,19 +1,18 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-// mongoose.connect(
-//   "mongodb://localhost/compilerdb",
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   },
-//   (err) => {
-//     err && console.error(err);
-//     console.log("Successfully connected to MongoDB: compilerdb");
-//   }
-// );
+require('dotenv').config();
 
-mongoose.connect('mongodb://127.0.0.1:27017/compilerdb');
+
+// mongoose.connect('mongodb://127.0.0.1:27017/compilerdb');
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+  console.log('Connected to MongoDB Atlas');
+})
+.catch((err) => {
+  console.error('Error connecting to MongoDB Atlas:', err);
+});
 
 const { generateFile } = require("./generateFile");
 

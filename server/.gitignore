@@ -1,6 +1,6 @@
 # dependencies
 /node_modules
-
+.vscode/
 
 node_modules/
 codes/
