@@ -25,6 +25,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get("/test", (req,res)=>{
+  res.send("Success");
+})
+
 app.post("/run", async (req, res) => {
   const { language = "cpp", code, input } = req.body;
 
