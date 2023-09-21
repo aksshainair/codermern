@@ -7,7 +7,6 @@ import CodeMirror from '@uiw/react-codemirror'
 import * as themes from '@uiw/codemirror-themes-all';
 import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
-import Home from "./home.js"
 
 const theme = themes.tokyoNight;
 
@@ -143,11 +142,15 @@ function App() {
 
       <div className="flex">
         <div className="code-and-submit">
+          <button className="submit cssbuttons-io-button" onClick={handleSubmit}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="8 -2 10 20" id="play"><path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"></path></svg>
+            Run
+          </button>
           <div className="editor-gradient">
             <CodeMirror
               className="editor"
               value={code}
-              height="70vh"
+              height="83vh"
               theme={theme}
               extensions={[cpp({ jsx: false }), python({ jsx: false })]}
               // autoFocus = 'true'
@@ -158,39 +161,42 @@ function App() {
               }}
             />
           </div>
-          <button title="add" className="submit cssbuttons-io-button" onClick={handleSubmit}>Submit</button>
         </div>
 
-      <div className="result">
-        <div className="input-gradient">
-          <h2>Input</h2>
-          <textarea
-            onChange={(e) => {
-              setInput(e.target.value);
-            }}
-          />
-        </div>
+        <div className="result">
+          <div className="input-gradient">
+            <h2>Input</h2>
+            <textarea
+            className="input"
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
+            />
+          </div>
 
-        <div className="input-gradient">
-          <h2>Status</h2>
-          <div className="info">
-            <p className="status" style={{ backgroundColor: status === "success" ? "rgb(92, 255, 92)" : status === "error" ? "rgb(255, 92, 92)" : status === "pending" ? "rgb(92, 217, 255)" : status === "Submitted" ? "rgb(182, 182, 182)": "rgba(0,0,0,0)" }}>{status}</p> <br/>
-            {jobId ? `Job ID: ${jobId}` : ""} <br/>
-            {renderTimeDetails()}
+          <div className="input-gradient">
+            <h2>Status</h2>
+            <div className="info">
+              <p className="status" style={{ 
+                "backgroundColor": status === "success" ? "rgb(92, 255, 92)" : status === "error" ? "rgb(255, 92, 92)" : status === "pending" ? "rgb(92, 217, 255)" : status === "Submitted" ? "rgb(182, 182, 182)": "rgba(0,0,0,0)",
+                // "color": status === "success" ? "#004200" : status === "error" ? "#ffbdbd" : status === "pending" ? "#002aff" : "#000",
+                }}>
+                {status}
+              </p> <br/>
+              {jobId ? `Job ID: ${jobId}` : ""} <br/>
+              {renderTimeDetails()}
+            </div>
+          </div>
+
+          <div className="input-gradient">
+            <h2>Output</h2>
+            <div className="output" style={{ whiteSpace: 'pre-line' }}> 
+              <p>{status==="error" ? JSON.parse(output).stderr : status==="success" ? output : ""}</p>
+            </div>
           </div>
         </div>
-
-        <div className="input-gradient">
-          <h2>Output</h2>
-          <div className="output" style={{ whiteSpace: 'pre-line' }}> 
-            <p>{output}</p>
-          </div>
-        </div>
-        
       </div>
-      </div>
-
-      <br />
+    {/* <div className="spacer"></div> */}
       
     </div>
   );
