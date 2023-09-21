@@ -9,7 +9,7 @@ const { executePy } = require("./executePy");
 
 const jobQueue = new Queue("job-runner-queue",{
   redis: {
-    host: 'redis://red-ck64kqddrqvc73a5ggtg',
+    host: 'red-ck64kqddrqvc73a5ggtg',
     port: 6379
   }
 });
