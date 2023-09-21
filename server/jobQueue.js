@@ -4,7 +4,14 @@ const Job = require("./models/Job");
 const { executeCpp } = require("./executeCpp");
 const { executePy } = require("./executePy");
 
-const jobQueue = new Queue("job-runner-queue");
+redis://red-ck64kqddrqvc73a5ggtg
+
+const jobQueue = new Queue("job-runner-queue",{
+  redis: {
+    host: 'red-ck64kqddrqvc73a5ggtg',
+    port: 6379
+  }
+});
 const NUM_WORKERS = 5;
 
 jobQueue.process(NUM_WORKERS, async ({ data }) => {
