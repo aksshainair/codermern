@@ -9,7 +9,7 @@ import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
 
 const theme = themes.tokyoNight;
-const SERVER_URL = process.env.SERVER_URI
+// const SERVER_URL = process.env.SERVER_URI  
 
 function App() {
   const [code, setCode] = useState("");
