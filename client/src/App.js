@@ -44,19 +44,15 @@ function App() {
       setJobId(null);
       setJobDetails(null);
 
-      const axiosInstance = axios.create({
-        baseURL: SERVER_URL,
-      });
-
-      const { data } = await axiosInstance.post("/run", payload);
+      const { data } = await axios.post("https://compiler-server.onrender.com/run", payload);
       if (data.jobId) {
         setJobId(data.jobId);
         setStatus("Submitted");
 
         // poll here
         pollInterval = setInterval(async () => {
-          const { data: statusRes } = await axiosInstance.get(
-            `/status`,
+          const { data: statusRes } = await axios.get(
+            `https://compiler-server.onrender.com/status`,
             {
               params: {
                 id: data.jobId,
