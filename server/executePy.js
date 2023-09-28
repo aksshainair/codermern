@@ -1,6 +1,6 @@
 const path = require("path");
 const { exec } = require("child_process");
-const fse = require('fs-extra')
+// const fse = require('fs-extra')
 
 const executePy = (filepath) => {
   const jobId = path.basename(filepath).split(".")[0];
@@ -13,8 +13,8 @@ const executePy = (filepath) => {
         error && reject({ error, stderr });
         stderr && reject(stderr);
         resolve(stdout);
-        fse.emptyDirSync(outputPath);
-        fse.emptyDirSync(codePath);
+        // fse.emptyDirSync(outputPath);
+        // fse.emptyDirSync(codePath);
       }
     );
   });
