@@ -9,7 +9,7 @@ import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
 
 const theme = themes.tokyoNight;
-// const SERVER_URL = process.env.SERVER_URI  
+const SERVER_URL = process.env.SERVER_URI  // || 'http://localhost:5001'
 
 function App() {
   const [code, setCode] = useState("");
@@ -44,7 +44,7 @@ function App() {
       setJobId(null);
       setJobDetails(null);
 
-      const { data } = await axios.post("https://compiler-server.onrender.com/run", payload);
+      const { data } = await axios.post(`${SERVER_URL}/run`, payload);
       if (data.jobId) {
         setJobId(data.jobId);
         setStatus("Submitted");
@@ -52,7 +52,7 @@ function App() {
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            `https://compiler-server.onrender.com/status`,
+            `${SERVER_URL}/status`,
             {
               params: {
                 id: data.jobId,
