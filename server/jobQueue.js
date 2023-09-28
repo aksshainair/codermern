@@ -1,3 +1,6 @@
+const fse = require('fs-extra');
+const fs = require('fs');
+const path = require('path');
 const Queue = require("bull");
 
 const Job = require("./models/Job");
@@ -29,6 +32,16 @@ jobQueue.process(NUM_WORKERS, async ({ data }) => {
     } else if (job.language === "py") {
       output = await executePy(job.filepath);
     }
+
+    const outputPath = path.join(__dirname, "outputs");
+    const codePath = path.join(__dirname, "codes");
+    if (fs.existsSync(codePath)) {
+      fse.emptyDirSync(codePath)
+    } 
+    if (fs.existsSync(outputPath)) {
+      fse.emptyDirSync(outputPath)
+    } 
+
     job["completedAt"] = new Date();
     job["output"] = output;
     job["status"] = "success";

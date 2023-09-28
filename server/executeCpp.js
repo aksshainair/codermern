@@ -1,7 +1,6 @@
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-// const fse = require('fs-extra')
 
 const outputPath = path.join(__dirname, "outputs");
 
@@ -21,8 +20,6 @@ const executeCpp = (filepath) => {
         error && reject({ error, stderr });
         stderr && reject(stderr);
         resolve(stdout);
-        // fse.emptyDirSync(outputPath);
-        // fse.emptyDirSync(codePath);
       }
     );
   });
